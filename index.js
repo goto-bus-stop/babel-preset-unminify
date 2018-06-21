@@ -1,3 +1,4 @@
+var d = require('defined')
 var prettier = require('prettier')
 var beautifier = require('babel-plugin-transform-beautifier')
 var wordify = require('./wordify')
@@ -18,12 +19,14 @@ function makePrettier () {
   }
 }
 
-module.exports = function () {
+module.exports = function (babel, opts) {
+  var words = d(opts.words, true)
+
   return {
     plugins: [
       makePrettier,
       beautifier,
-      wordify
-    ]
+      words && wordify
+    ].filter(Boolean)
   }
 }
