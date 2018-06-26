@@ -1,8 +1,8 @@
 var d = require('defined')
 var xtend = require('xtend/mutable')
 var prettier = require('babel-plugin-generator-prettier')
+var phonetize = require('babel-plugin-transform-phonetize')
 var beautifier = require('babel-plugin-transform-beautifier')
-var wordify = require('./wordify')
 
 function prettierOptions () {
   return {
@@ -25,7 +25,7 @@ module.exports = function (babel, opts) {
       prettier,
       prettierOptions,
       beautifier,
-      words && wordify
+      words && phonetize
     ].filter(Boolean)
   }
 }
