@@ -1,30 +1,29 @@
 var d = require('defined')
-var prettier = require('prettier')
+var xtend = require('xtend/mutable')
+var prettier = require('babel-plugin-generator-prettier')
 var beautifier = require('babel-plugin-transform-beautifier')
 var wordify = require('./wordify')
 
-function makePrettier () {
-  function print (ast, opts, input) {
-    var result = prettier.__debug.formatAST(ast.program, {
-      semi: false,
-      printWidth: 120,
-      singleQuote: true,
-      originalText: input
-    })
-    return { code: result.formatted }
-  }
-
+function prettierOptions () {
   return {
-    generatorOverride: print
+    manipulateOptions: function (opts) {
+      xtend(opts.generatorOpts, {
+        semi: false,
+        printWidth: 120,
+        singleQuote: true
+      })
+    }
   }
 }
 
 module.exports = function (babel, opts) {
+  babel.assertVersion(7)
   var words = d(opts.words, true)
 
   return {
     plugins: [
-      makePrettier,
+      prettier,
+      prettierOptions,
       beautifier,
       words && wordify
     ].filter(Boolean)
