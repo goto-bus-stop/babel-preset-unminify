@@ -1,19 +1,31 @@
 #!/usr/bin/env node
 
 var babel = require('@babel/core')
+var concat = require('simple-concat')
 var args = require('minimist')(process.argv.slice(2))
 
-var file = args._[0]
-if (!file) {
+if (args.h || args.help) {
   console.error('usage: unminify [file] [options]')
-  process.exit(1)
+  process.exit(0)
 }
 
-babel.transformFile(file, {
+var opts = {
   presets: [
     [__dirname, args]
   ]
-}, function (err, result) {
+}
+
+var file = args._[0]
+if (file) {
+  babel.transformFile(file, opts, ondone)
+} else {
+  concat(process.stdin, function (err, buf) {
+    if (err) throw err
+    babel.transform(buf.toString(), opts, ondone)
+  })
+}
+
+function ondone (err, result) {
   if (err) throw err
   console.log(result.code)
-})
+}
