@@ -25,7 +25,7 @@ module.exports = function (babel, opts) {
       prettier,
       prettierOptions,
       beautifier,
-      words && phonetize
+      words && [phonetize, { unique: true }]
     ].filter(Boolean)
   }
 }
