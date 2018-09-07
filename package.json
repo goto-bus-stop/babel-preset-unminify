@@ -32,7 +32,6 @@
     "babel-plugin-transform-phonetize": "^1.0.0",
     "defined": "^1.0.0",
     "minimist": "^1.2.0",
-    "simple-concat": "^1.0.0",
-    "xtend": "^4.0.1"
+    "simple-concat": "^1.0.0"
   }
 }
