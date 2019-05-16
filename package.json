@@ -1,7 +1,7 @@
 {
   "name": "babel-preset-unminify",
   "description": "make minified code more readable.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Renée Kooi <renee@kooi.me>",
   "bugs": {
     "url": "https://github.com/goto-bus-stop/babel-preset-unminify/issues"
